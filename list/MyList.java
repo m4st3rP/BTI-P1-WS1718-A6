@@ -40,15 +40,17 @@ public class MyList<Object> {
         return false;
     }
 
-    public void putf() {}
+    public void putf(Object object) {}
 
-    public void putL() {}
+    public void putL(Object object) {}
 
     public Object setNo(int position, Object object) {
         return null;
     }
 
-    public boolean removeNo(int position) {
+    public void removeNo(int position) {}
+
+    public boolean remove(Object object) {
         return false;
     }
 
