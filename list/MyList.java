@@ -54,7 +54,7 @@ public class MyList<T> {
         return true;
     }
 
-    public void putf(T info) {
+    public void putF(T info) {
         assert null != info : "Unsupported Argument";
         final Node<T> newNode = new Node<T>(info);
         newNode.next = head;
