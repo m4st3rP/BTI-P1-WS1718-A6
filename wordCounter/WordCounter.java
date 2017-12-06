@@ -20,22 +20,10 @@ public class WordCounter {
                 map.get(word).inc();
             }
         }
-
-        map = sortMap(map);
-
-        
-        for (HashMap.Entry<Word, Counter> entry : map.entrySet()) {
-            System.out.println("[ " + entry.getKey().getWord() + " ] : " + entry.getValue().getCount());
-        }
-    }
-
-    public HashMap<Word, Counter> sortMap(HashMap<Word, Counter> map) {
-        final HashMap<Word, Counter> newMap = new HashMap<Word, Counter>();
         final ArrayList<Word> words = new ArrayList<>(map.keySet());
         Collections.sort(words);
         for (Word i : words) {
-            newMap.put(i, map.get(i));
+            System.out.println("[ " + i.getWord() + " ] : " + map.get(i).getCount());
         }
-        return newMap;
     }
 }
