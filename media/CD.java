@@ -7,4 +7,9 @@ public class CD extends Disc {
         super(title, contentType);
         this.interpret = interpret;
     }
+    
+    @Override
+    public String toString() {
+        return "Title: " + title + ", Content Type: " + contentType + ", Interpret: " + interpret;
+    }
 }
