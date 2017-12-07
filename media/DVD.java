@@ -1,10 +1,18 @@
 package media;
 
-public class DVD extends Disc {
-    private Format videoFormat;
+public abstract class Disc {
+    protected String title;
+    protected Content contentType;
 
-    public DVD(String title, Content contentType, Format videoFormat) {
-        super(title, contentType);
-        this.videoFormat = videoFormat;
+
+    public Disc(String title, Content contentType) {
+        this.title = title;
+        this.contentType = contentType;
     }
+    
+    @Override
+    public String toString() {
+        return "Title: " + title + ", Content Type: " + contentType;
+    }
+    
 }
