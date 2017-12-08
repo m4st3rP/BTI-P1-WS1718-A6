@@ -10,6 +10,16 @@ public class DVD extends Disc {
     
     @Override
     public String toString() {
-        return "Title: " + title + ", Content Type: " + contentType + ", Video Format: " + videoFormat;
+        return "Class: " + this.getClass() + ", Title: " + title + ", Content Type: " + contentType + ", Video Format: " + videoFormat;
     }
+    
+//    @Override
+//    public boolean equals(Object obj) {
+//        DVD objcet = (DVD) obj;
+//        if (this.title == objcet.title && this.contentType == objcet.contentType && this.videoFormat == objcet.videoFormat) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }
