@@ -54,19 +54,44 @@ public class MyList<T> {
         }
     }
 
-    // TODO Ausnahmefälle
     public boolean putNo(final int position, final T info) {
         assert position > -1 && position < getSize() + 1 && info != null : "Unsupported Argument";
 
         final Node<T> newNode = new Node<T>(info);
-        newNode.next = iGetNodeNo(position);
-        newNode.previous = iGetNodeNo(position).previous;
-        newNode.previous.next = newNode;
-        iGetNodeNo(position).previous = newNode;
-        size++;
-        return true;
+        if (position != 0 && position != getSize() - 1) {          
+            newNode.next = iGetNodeNo(position);
+            newNode.previous = iGetNodeNo(position).previous;
+            newNode.previous.next = newNode;
+            iGetNodeNo(position).previous = newNode;
+            size++;
+            return true;
+        } else if (position == 0 && position != getSize()) {
+            newNode.next = iGetNodeNo(position);
+            newNode.previous = null;
+            head.previous = newNode;
+            size++;
+            return true;
+        } else if (position != 0 && position == getSize()) {
+            newNode.next = null;
+            newNode.previous = tail;
+            tail.next = newNode;
+            size++;
+            return true;
+        } else if (position == 0 && position == getSize()) {
+            head = newNode;
+            tail = newNode;
+            //Redundant wegen Konstruktor?
+            newNode.next = null;
+            newNode.previous = null;
+            size++;
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
+    //TODO Sonderfall beachten wenn Liste mit putF erstellt wird und dann mit putL von dieser Liste neue generiert wird
     public void putF(T info) {
         assert null != info : "Unsupported Argument";
         final Node<T> newNode = new Node<T>(info);
@@ -113,14 +138,18 @@ public class MyList<T> {
 
     // TODO Evtl alle Verweise auch bei anderen Knoten auf null setzen?
     public void clear() {
+        size = 0;
         head = null;
         tail = null;
     }
 
     public boolean isEmpty() {
-        if (getSize() > 0) {
+        if (head != null && tail != null) {
+            return false;
+        } else if (head == null && tail == null) {
             return true;
         } else {
+            System.out.println("Serious error: Either head or tail are null but not both!");
             return false;
         }
     }
@@ -138,7 +167,7 @@ public class MyList<T> {
 
     public boolean contains(T info) {
         assert null != info : "Unsupported Argument";
-        return !iSearchNode(info).equals(null);
+        return iSearchNode(info) != null;
     }
 
     // Helping Methods
@@ -152,7 +181,7 @@ public class MyList<T> {
     }
 
     protected Node<T> iGetNodeNo(int position) {
-        assert position > -1 && position < getSize() : "Unsupported Argument";
+        assert position > -1 && position < size : "Unsupported Argument";
         Node<T> work;
 
         // if (getSize() / 2 > position) {
@@ -186,6 +215,9 @@ public class MyList<T> {
             tail = node.previous;
             tail.next = null;
             size--;
+            return true;
+        } else if (node.equals(head) && node.equals(tail)) {
+            clear();
             return true;
         } else {
             return false;
