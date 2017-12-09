@@ -1,6 +1,6 @@
 package media;
 
-public class Disc {
+public abstract class Disc {
     protected String title;
     protected Content contentType;
 
@@ -12,17 +12,26 @@ public class Disc {
     
     @Override
     public String toString() {
-        return "Class: " + this.getClass() + ", Title: " + title + ", Content Type: " + contentType;
-    }
+        return String.format("[<%s>: Title=%s, MediaType=%s]", Disc.class.getSimpleName(), title, contentType);
+}
     
     @Override
     public boolean equals(Object obj) {
-        Disc object = (Disc) obj;
-        if (this.title == object.title && this.contentType == object.contentType) {
+        if (this == obj)
             return true;
-        } else {
+        if (obj == null)
             return false;
-        }
+        if (getClass() != obj.getClass())
+            return false;
+        Disc other = (Disc) obj;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        } else if (!title.equals(other.title))
+            return false;
+        if (contentType != other.contentType)
+            return false;
+        return true;
     }
     
     @Override
