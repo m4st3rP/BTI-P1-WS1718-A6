@@ -7,19 +7,18 @@ public class DVD extends Disc {
         super(title, contentType);
         this.videoFormat = videoFormat;
     }
-    
+
+
     @Override
     public String toString() {
-        return "Class: " + this.getClass() + ", Title: " + title + ", Content Type: " + contentType + ", Video Format: " + videoFormat;
+        return String.format("[<%s>: Format=%s %s]", DVD.class.getSimpleName(), videoFormat, super.toString());
     }
-    
-//    @Override
-//    public boolean equals(Object obj) {
-//        DVD objcet = (DVD) obj;
-//        if (this.title == objcet.title && this.contentType == objcet.contentType && this.videoFormat == objcet.videoFormat) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+
+    @Override
+    public boolean equals(Object other) {
+        boolean equal = super.equals(other);
+        if (getClass() != other.getClass())
+            return false;
+        return ((DVD) other).videoFormat.equals(this.videoFormat) && equal;
+    }
 }
