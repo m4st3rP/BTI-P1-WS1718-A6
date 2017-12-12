@@ -86,71 +86,36 @@ public class MyList<T> {
         return true;
     }
 
-    // public boolean putNo(final int position, final T info) {
-    // assert -1 < position && position <= getSize() && info != null : "Unsupported Argument(s)";
-    //
-    // final Node<T> newNode = new Node<T>(info);
-    // final Node<T> node = iGetNodeNo(position);
-    //
-    // if (position != 0 && position != getSize() - 1) {
-    // node.previous.next = newNode;
-    // newNode.previous = node.previous;
-    // node.previous = newNode;
-    // newNode.next = node;
-    // size++;
-    // return true;
-    // } else if (position == 0 && position != getSize()) {
-    // newNode.next = node;
-    // newNode.previous = null;
-    // head.previous = newNode;
-    // size++;
-    // return true;
-    // } else if (position != 0 && position == getSize()) {
-    // newNode.next = null;
-    // newNode.previous = tail;
-    // tail.next = newNode;
-    // size++;
-    // return true;
-    // } else if (position == 0 && position == getSize()) {
-    // head = newNode;
-    // tail = newNode;
-    // size++;
-    // return true;
-    // } else {
-    // return false;
-    // }
-    //
-    // }
-
-    // TODO Sonderfall beachten wenn Liste mit putF erstellt wird und dann mit putL von dieser Liste
-    // neue generiert wird
-    public void putF(T info) {
-        assert null != info : "Unsupported Argument";
-
-        final Node<T> newNode = new Node<T>(info);
-        newNode.next = head;
-        if (isEmpty()) {
-            tail = newNode;
-        }
-        head = newNode;
-        size++;
-    }
-
-    public void putL(T info) {
-        assert null != info : "Unsupported Argument";
-
-        final Node<T> newNode = new Node<T>(info);
-        if (isEmpty()) {
-            head = newNode;
+    public void putF(T element) {
+        Node<T> headNode = head;
+        if (!isEmpty()) {
+            Node<T> newheadNode = new Node<>(element);
+            headNode.previous = newheadNode;
+            newheadNode.next = headNode;
+            head = newheadNode;
         } else {
-            newNode.previous = tail;
-            tail.next = newNode;
+            head = new Node<>(element);
+            tail = head;
         }
-        tail = newNode;
+
         size++;
     }
 
-    // TODO Size und Ausnahmefälle
+    public void putL(T element) {
+        Node<T> tailNode = tail;
+        if (!isEmpty()) {
+            Node<T> newtailNode = new Node<>(element);
+            tailNode.next = newtailNode;
+            newtailNode.previous = tailNode;
+            tail = newtailNode;
+        } else {
+            tail = new Node<>(element);
+            head = tail;
+        }
+
+        size++;
+    }
+
     public T setNo(int position, T info) {
         assert -1 < position && position <= getSize() && info != null : "Unsupported Argument";
 
@@ -173,7 +138,6 @@ public class MyList<T> {
         return iRemoveNode(iSearchNode(info));
     }
 
-    // TODO Evtl alle Verweise auch bei anderen Knoten auf null setzen?
     public void clear() {
         size = 0;
         head = null;
@@ -192,24 +156,15 @@ public class MyList<T> {
     }
 
     public int getSize() {
-        // int counter = 0;
-        // Node<T> work = head;
-        // while (work != null) {
-        // work = work.next;
-        // counter++;
-        // }
-        // return counter;
         return size;
     }
 
     public boolean contains(T info) {
-        // assert null != info : "Unsupported Argument";
         return iSearchNode(info) != null;
     }
 
     // Helping Methods
     protected Node<T> iSearchNode(T info) {
-        // assert null != info : "Unsupported Argument";
         if (info == null)
             return null;
 
