@@ -1,14 +1,23 @@
 package list;
 
-public class Node<T> {
-    T info;
-    Node<T> next;
-    Node<T> previous;
+class Node<T> {
+	private T data;
+	Node<T> next;
+	Node<T> previous;
 
+	public Node(T data) {
+		this.data = data;
+	}
 
-    public Node(T info) {
-        this.info = info;
-        this.next = null;
-        this.previous = null;
-    }
+	public T getData() {
+		return data;
+	}
+
+	public boolean hasNext() {
+		return next != null;
+	}
+
+	public boolean hasPrevious() {
+		return previous != null;
+	}
 }
