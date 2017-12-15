@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class WordCounter {
 
-    public void printStatistic(String file) {
+    public void printStatistic(String fileName) {
         HashMap<Word, Counter> map = new HashMap<Word, Counter>();
-        WordGrabber wg = new WordGrabber("PrincessOfMars.txt");
+        WordGrabber wg = new WordGrabber(fileName);
 
         while (wg.hasNext()) {
             Word word = new Word(wg.next());
@@ -20,6 +20,7 @@ public class WordCounter {
                 map.get(word).inc();
             }
         }
+        
         final ArrayList<Word> words = new ArrayList<>(map.keySet());
         Collections.sort(words);
         for (Word i : words) {
