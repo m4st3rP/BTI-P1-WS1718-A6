@@ -1,11 +1,11 @@
 package wordCounter;
 
-public class Word implements Comparable<Object> {
+public class Word implements Comparable<Word> {
     private final String word;
 
 
     public Word(String word) {
-        this.word = word;
+        this.word = word.toLowerCase();
     }
 
 
@@ -16,18 +16,21 @@ public class Word implements Comparable<Object> {
 
     @Override
     public boolean equals(Object obj) {
+        if(!(obj instanceof Word)) {
+            return false;            
+        }
+        
         Word otherWord = (Word) obj;
-        return (this.word.toLowerCase().equals(otherWord.word.toLowerCase()));
+        return (this.word.equals(otherWord.word));
     }
 
     @Override
     public int hashCode() {
-        return 1;
+        return word.hashCode();
     }
 
     @Override
-    public int compareTo(Object obj) {
-        Word otherWord = (Word) obj;
+    public int compareTo(Word otherWord) {
         return this.word.compareTo(otherWord.word);
     }
 }
