@@ -1,41 +1,38 @@
 package tripleFinder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import cards.Card;
+import cards.Card.Rank;
 
 public class CardProcessor implements CardProcessor_I {
-    private ArrayList<Card> list;
 
+	final Map<Rank, List<Card>> cardMap = new HashMap<Rank, List<Card>>();
+	final int DRILLINGCOUNT = 3;
 
-    public CardProcessor() {
-        list = new ArrayList<Card>();
-    }
+	@Override
+	public Object process(Card card) {
+		final Rank rank = card.getRank();
+		List<Card> rankList = cardMap.get(rank);
+		if (null == rankList) {
+			rankList = new ArrayList<Card>();
+			rankList.add(card);
+			cardMap.put(rank, rankList);
+		} else
+			rankList.add(card);
 
+		if (rankList.size() == DRILLINGCOUNT)
+			return rankList;
 
+		return null;
+	}
 
-    /**
-     * return Object First card that appears three times or if not existent null.
-     */
-    @Override
-    public Object process(Card card) {
-        int counter = 0;
-        for (Card i : list) {
-            if (card.equals(i))
-                counter++;
-        }
-        if (counter < 2) {
-            list.add(card);
-            return null;
-        } else {
-            return card;
-        }
-    }
+	@Override
+	public void reset() {
+		cardMap.clear();
+	}
 
-    /**
-     * Resets the ArrayList of cards.
-     */
-    @Override
-    public void reset() {
-        list.clear();
-    }
 }
